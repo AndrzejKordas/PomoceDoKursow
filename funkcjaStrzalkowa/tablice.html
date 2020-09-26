@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<Style>
+	</Style>
+</head>
+
+<body id="tBody">
+<h1 id="nagl"></h1>
+	<script>
+		'use strict';
+
+	let utwory = ["Jetro Tull","Brick","Led Zeppelin","Ahilles"];
+		utwory.forEach((track, index) => console.log(`${index}:${track}`));
+		let drukowane = utwory.map((track, index) => track.toUpperCase());//literowanie tablicy z wykonaniem zdefiniowanej akcji
+		let filtr = utwory.filter((track, index) => index < 2);//metoda filter zwraca prawda,fausz i na tet podstawie tworzymy nową tablicę
+		let znaki = utwory.reduce((count, track) => count += track.length, 0 );
+		/*
+		reduce sprowadza tablicę do pojedyńczej wartości
+		count, track - liczba znaków w poprezdnim collback i aktu ele tablicy
+		count += track.length - zwraca liczbę akt utworu i bierzącego utworu
+		oprócz collback metoda reduce ma initial value - odktórego wywołania zaczynamy 
+		*/
+		console.log(filtr);
+
+		/*
+		
+		ECMA Script 6
+		Funkcja strzałkowa
+		
+		OLD
+		var add = function (a, b){
+			return a + b;
+			}
+		
+		NEW	
+		let add = (3, 8) => a + b;	
+		
+		
+		*/
+		
+		
+	</script>
+</body>
+
+</html>

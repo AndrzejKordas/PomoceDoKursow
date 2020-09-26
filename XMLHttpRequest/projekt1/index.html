@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/grid.min.css" rel="stylesheet" type="text/css">
+    <title>Stalówki</title>
+</head>
+<h2>Using the XMLHttpRequest Object</h2>
+<button type="button" id="but" name="but">Change Content</button>
+<div id="demo">
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+const ele = document.getElementById("but");
+ele.addEventListener("click",loadXMLDoc,false);
+
+
+
+function loadXMLDoc(e) {
+  
+  console.log(e.target.id);
+  
+  var xhttp = new XMLHttpRequest();
+  
+  xhttp.onreadystatechange = function() {
+         
+	if (this.readyState == 4 && this.status == 200) {
+	  var response = JSON.parse(this.responseText);
+	 
+	  //tworzenie ele
+	  var nazwisko = response.name;
+	  var zawod = response.zawod;
+	
+	//	WYŚWIETLAMY W ELE DEMO	
+	 // document.getElementById("demo").innerHTML = "<h1>" + nazwisko + "</h1><h2>" + zawod + "</h2><h3>KSIĄŻKI</h3>";
+	$("#demo").fadeIn("slow").html("<h1>" + nazwisko + "</h1><h2>" + zawod + "</h2><h3>KSIĄŻKI</h3>");
+	
+	 //zostały nam książki 
+	  response.ksiazki.forEach(
+		(track, index) => { 
+		//console.log(`${index}:${track}`);
+		var eleDemo =document.getElementById("demo");
+		var nod2 = document.createElement("li");
+		var coAdd2 = document.createTextNode(track);
+		nod2.appendChild(coAdd2);
+		eleDemo.appendChild(nod2);
+		}
+		);//koniec forEach
+    }//koniec if
+  };//koniec onreadystatechange
+  
+  
+  xhttp.open("GET", "pliki/dane.json", true);
+  xhttp.send();
+
+}//koniec funkcji loadXMLDoc(e)
+
+
+</script>
+
+</body>
+</html>

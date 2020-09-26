@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+    <style>
+        li {
+            margin: 1rem;
+        }
+
+        li:hover {
+            color: pink;
+
+        }
+
+        .dupa {
+            color: red;
+            font-family: sans-serif;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        const arr = ["pies", "kot", "słoń"];
+
+        arr.forEach(
+            (ele, i) => {
+                const li = document.createElement("li");
+                li.innerHTML = ele;
+                const co = document.getElementById('app');
+                co.appendChild(li);
+            }
+        );
+
+        //wybieramy wszystkie selektory
+        const EleList = document.querySelectorAll('li');
+
+        EleList.forEach(
+            (ele) => {
+                ele.addEventListener('click', (e) => {
+                    e.target.classList.toggle('dupa');
+                });
+            });
+
+    </script>
+
+</body>
+
+</html>

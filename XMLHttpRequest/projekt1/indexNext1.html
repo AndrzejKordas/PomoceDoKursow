@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Stalówki</title>
+</head>
+
+<header>Użycie obiektu XMLHttpRequest</header>
+
+<div class="tool">
+    <button type="button" id="but" name="but" class="link">Dane1</button>
+    <button type="button" id="but2" name="but2" class="link">Dane2</button>
+</div>
+<div class="naglowek">
+    <i class="far fa-address-card fa-2x"></i> Dane:
+</div>
+<div id="demo">
+
+</div>
+
+
+<script>
+    const EleList = document.querySelectorAll('link');
+    console.log(EleList);
+
+    const ele = document.getElementById("but");
+    const ele2 = document.getElementById("but2");
+    ele.addEventListener("click", loadXMLDoc, false);
+    ele2.addEventListener("click", loadXMLDoc, false);
+
+
+    function loadXMLDoc(e) {
+        //tworzymy obiekt pobierania danych
+        const xhttp = new XMLHttpRequest();
+        //wykorzystujemy jego metodę / xhttp.onreadystatechange/
+        xhttp.onreadystatechange = function() {
+            //korzystamy z właściwości by sprawdzić czy dane się załądowały
+            if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+
+                //tworzenie ele
+                let nazwisko = response.name;
+               let zawod = response.zawod;
+                //	WYŚWIETLAMY W ELE DEMO	
+                const demo = document.querySelector("#demo");
+                demo.innerHTML = "<h1>" + nazwisko + "</h1><h2>" + zawod + "</h2><h3>KSIĄŻKI</h3>";
+
+                //zostały nam książki 
+                response.ksiazki.forEach(
+                    (track, index) => {
+                        const nod2 = document.createElement("li");
+                        const coAdd2 = document.createTextNode(track);
+                        nod2.appendChild(coAdd2);
+                        demo.appendChild(nod2);
+                    }
+                ); //koniec forEach
+            } //koniec if
+        }; //koniec onreadystatechange
+
+        //OBSŁUGA BUTONÓW
+        let co = e.target.id;
+
+        if (co == "but") {
+            xhttp.open("GET", "pliki/dane.json", true);
+        }
+        if (co == "but2") {
+            xhttp.open("GET", "pliki/dane2.json", true);
+        }
+        //DODAJEMY RZĄDANIE DO KOLEJKI W js
+        xhttp.send();
+
+    } //koniec funkcji loadXMLDoc(e)
+
+</script>
+
+</body>
+
+</html>

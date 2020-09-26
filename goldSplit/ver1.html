@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+*{
+	transition:all 1s;
+	}
+#war3,	
+#war,
+#war2
+{float:left}
+#war{
+	background:red;
+	transition:all 1s;
+	}
+#war2{
+	background:blue;
+	transition:all 1s;
+	}
+#war3{
+	background:green;
+	transition:all 1s;
+	}		
+</style>
+</head>
+<body>
+<input id="pole"><input type="button" value="war" id="but">
+<div>
+<div id="war"></div>
+<div id="war2"></div>
+<div id="war3"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+	var eleWar = document.getElementById("war");
+	var eleWar2 = document.getElementById("war2");
+	var eleWar3 = document.getElementById("war3");
+	
+	$("#but").click(function(){
+		
+		let Pole = document.getElementById("pole").value;//pobieranie wartości
+		let valuePole = parseFloat(Pole);
+		$("#war").css({ width: valuePole+"px", height: valuePole+"px" });
+		let value2 = valuePole / 1.61803; 
+		$("#war2").css({width: value2 + "px", height: value2 + "px"});
+		let value3 = value2 / 1.61803; 
+		$("#war3").css({width: value3 + "px", height: value3 + "px"});
+		
+		eleWar.innerHTML = valuePole;
+		eleWar2.innerHTML = value2;
+		eleWar3.innerHTML = value3;
+
+
+		});
+	
+	});
+</script>
+</body>
+</html>

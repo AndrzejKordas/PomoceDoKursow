@@ -1,0 +1,11 @@
+[{
+	  "name": "Andrzej Kordas",
+	  "zawod": "Grafik",
+	  "ksiazki": ["Tytół 1","Tytół 2","Tytół 3"]
+	},
+    {
+	  "name": "Kolaska",
+	  "zawod": "Hydrulik",
+	  "ksiazki": ["Tytół 1","Tytół 2","Tytół 3"]
+	}
+]

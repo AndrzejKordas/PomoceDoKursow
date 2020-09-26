@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <title>JavaScript</title>
+</head>
+
+<body>
+<header>JavaScript</header>
+<form action="send.php" method="get">
+    <fieldset id="wina">
+    	<legend>Wina</legend>
+        <div>
+            <label>
+                Tanie ( 20zł)
+                <input type="checkbox" name = "20" id="tanie">
+            </label>
+        </div>
+        <div>
+            <label>
+                Średnie (60zł)
+                <input type="checkbox" name = "60" id="srednie">
+            </label>        
+        </div>
+        <div>
+            <label>
+                Drogie (120zł)
+                <input type="checkbox" name = "120" id="drogie">
+            </label>        
+        </div>
+    </fieldset>
+    <fieldset id="dostawa">
+    	<legend>Dostawa</legend>
+        <div>
+            <label>
+                Kurier ( 100zł )
+                <input type="radio" name = "dostawa" value="100">
+            </label>
+        </div>
+        <div>
+            <label>
+                Osobisty ( 10zł )
+                <input type="radio" name = "dostawa" value="10">
+            </label>        
+        </div>
+    </fieldset> 
+    <input type="submit" id="but">   
+</form>
+<script>
+
+const ele = document.getElementById("but");
+ele.addEventListener("click",zamawiam,false);
+
+const eleDostawa = document.getElementById("dostawa");
+eleDostawa.addEventListener("change",sprawdzDostawa,false);
+
+const eleWina = document.getElementById("wina");
+eleWina.addEventListener("change",sumuj,false);
+
+
+var suma = 0;
+var tab = [];
+var dostawa = 0;
+
+
+function sumuj(e){
+	
+	//PRODUKTU
+	var kwota = parseFloat(e.target.name);//zamiana stringu na number
+	
+	var ktory = e.target.id;//identyfikacja elementu na podstawie zdarzenia
+	
+	//SPRAWDZENIE CZY PRODUKT ZNAJDUJE SIĘ JUŻ W TABLICY
+	var boolean = tab.includes(ktory);//przeszukiwanie tablicy "tab" na podstawie wartości "ktory" zwraca Boolean
+	
+	//ODNALEŻENIE PRODUKTU NA PODSTAWIE INDEKSU
+	var indeks = tab.findIndex(n => n == ktory);//odnajdywanie indeksu na podstawie wartości
+
+	
+	if( boolean == false){
+		suma = suma + kwota;
+		tab.push(ktory);
+		}
+		
+	if(boolean == true){
+		suma = suma - kwota;
+		tab.splice(indeks, 1);
+		/*
+		metoda dodawania i usuwanie ele. tablicy( "indeks" wartość -1 to koniec tablicy  ,  ile elementów jeśli jest 0 to dodajemy inaczej odejmujemy)
+		array.splice(index, howmany, item1, ....., itemX) item1 - itemX wartość elem.
+		*/
+		}
+				
+	console.log(tab + "---" + suma);
+}
+
+
+function sprawdzDostawa(e){
+	dostawa = 0;
+	dostawa = parseFloat(e.target.value);
+	
+	}
+	
+function zamawiam(e){
+	
+	e.preventDefault();
+	
+	if( dostawa != 0){
+	var calosc = parseFloat(suma + dostawa);
+	console.log(tab + "---" + calosc);
+	}else{
+		alert("wybierz formę dostawy");
+		}
+}
+
+
+
+</script>
+</body>
+</html>

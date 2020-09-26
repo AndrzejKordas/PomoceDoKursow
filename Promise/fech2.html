@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+
+#demo{
+    display: grid;
+    grid-template-columns: auto auto;
+    padding:2rem 0;
+}
+#demo > div{
+    border-bottom:1px solid #ddd;
+}
+
+code{
+    text-align: left;
+    display: block;
+    width: 80%;
+    margin: auto;
+    font-weight:200;
+    font-size: 1.2rem;
+}
+</style>
+</head>
+<body>
+    <header>Pobieranie danych Joson - Fetch API</header>
+
+    <div class="naglowek">
+        <h2>Fetch API</h2>
+        <code>
+            <pre>
+fetch("https://jsonplaceholder.typicode.com/users")
+.then(resp => resp.json())  
+.then(resp => {console.log("Przykład 1:");})
+            </pre>
+        </code>
+           
+    </div>
+    <div class="tool">
+
+    </div>
+            
+    <div class="naglowek">
+        <i class="far fa-address-card fa-2x"></i> Dane:
+    </div>
+    <div id="demo" style="font-size:1.2em" id="demo">
+
+    </div>
+
+    <script>
+    	var frag = document.createDocumentFragment();
+        
+		fetch("https://api.nbp.pl/api/exchangerates/tables/A?format=json")
+        .then(resp => resp.json())
+        .then(resp => {
+			resp.forEach(( ele ) => { 
+                for(i = 0; i < ele.rates.length; i++ ){
+                    
+                    let znacznik1 = document.createElement('div');
+                    znacznik1.innerHTML = ele.rates[i].currency;
+
+                    let znacznik2 = document.createElement('div');
+                    znacznik2.innerHTML = ele.rates[i].mid;                   
+
+                    frag.appendChild(znacznik1);
+                    frag.appendChild(znacznik2); 
+
+                    const place = document.getElementById("demo");
+                    place.appendChild(frag);                     
+
+                    }
+                    
+				}
+
+			);
+  
+		})
+
+    </script>
+
+</body>
+</html>

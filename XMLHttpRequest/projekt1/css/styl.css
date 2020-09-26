@@ -1,0 +1,63 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin:0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 2rem;
+    background: #eee;
+}
+header{
+    width:100vw;
+    padding: 4rem;
+    box-sizing: border-box;
+    background: #000;
+    color:#eee;
+    font-size: 2rem;
+    font-weight: 200;
+        background-image: url(../pliki/gradient.svg);
+}
+.naglowek{
+    margin:auto;
+    width: 80%;
+    background: #444;
+    padding: 1rem 0;
+    text-align: center;
+    color:#eee;
+    font-weight: 600;
+    background-size: cover;
+    
+}
+#demo{
+    font-family: 'Roboto Mono', monospace;
+    margin:auto;
+    width: 80%;
+    text-align: center;
+    border:1px solid #aaa;
+    border-radius:0 0 12px 12px;
+    transition: all 1s;
+
+}
+button{
+    padding: 0.5rem 3rem;
+    text-align: center;
+    background: #e0e0e0;
+    border:none;
+    border-radius:6px;
+    vertical-align:middle;
+    border:2px solid #444;
+    color:#777;
+    margin:1rem;
+    font-size: 1.2rem;
+}
+button i{
+    float: left;
+    margin-right: 0.5rem;
+}
+.tool{
+    margin:auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}

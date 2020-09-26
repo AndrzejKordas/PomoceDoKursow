@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Notacja JSON</title>
+	<style>
+		textarea{
+			width: 80%;
+			padding: 2rem;
+		}
+	</style>
+</head>
+<body>
+<header>Pobieranie danych z pliku JSON i dekompozycja obiektów</header> 
+<button type="button" id="but" name="but">Pobierz dane</button>
+<div id="demo">
+
+</div>
+
+<script>
+
+const ele = document.querySelector('#but');	
+	
+ele.addEventListener('click',zaladuj);
+
+function zaladuj(e){
+	
+	const xmlr = new XMLHttpRequest();
+	xmlr.onreadystatechange = function(){
+		
+		if( this.readyState == 4 && this.status == 200){
+									  
+			const tekst = JSON.parse(this.responseText);
+			
+			const frag = document.createDocumentFragment();
+			
+			let nazwa = tekst.name;
+			let versja = tekst.version;
+			let opis = tekst.description;
+			let main =	tekst.main;
+			
+			const nagl = document.createElement('h1');
+			const nodeNagl = document.createTextNode(nazwa);
+			nagl.appendChild(nodeNagl);
+			frag.appendChild(nagl);
+			
+			const akapit1 = document.createElement('li');
+			const nodeApapit1 = document.createTextNode(versja);
+			akapit1.appendChild(nodeApapit1);
+			frag.appendChild(akapit1);
+			
+			const akapit2 = document.createElement('textarea');
+			const nodeApapit2 = document.createTextNode(opis)
+			akapit2.appendChild(nodeApapit2);
+			frag.appendChild(akapit2);
+			
+			const akapit3 = document.createElement('h3');
+			const nodeApapit3 = document.createTextNode(main);
+			akapit3.appendChild(nodeApapit3);
+			frag.appendChild(akapit3);
+
+			
+			//dekompozycja obiektu scripts który jest częścią sparsowanego JSNO
+			//chcemy dowiedzieć się jaka jest właściwość "babel-plugin-check-es2015-constants"
+			//wersja to oczywiście alias
+			const {"address" : { "addressLocality" : lokacja }}  = tekst;
+		    console.log(lokacja);
+
+			//tutaj bierzymy cały obiekt 
+			//skrypty to oczywiście też alias
+			const {"address" : skrypty }  = tekst;
+			for (const key in skrypty){
+				const akapitM = document.createElement('li');
+				const nodeApapitM = document.createTextNode( key + " :: " + skrypty[key]);
+				akapitM.appendChild(nodeApapitM);
+				frag.appendChild(akapitM);
+			}
+			
+			
+			
+			const demoEle = document.querySelector('#demo');
+			demoEle.appendChild(frag);
+			
+		}
+	}
+	xmlr.open("GET","packege.json",true);
+	xmlr.send();
+}
+	
+</script>
+
+</body>
+</html>

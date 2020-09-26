@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <header>Pobieranie danych JOSON - Zewnętrznych</header>
+
+<body>
+    <div id="demo"></div>
+
+<script>
+	const app = document.querySelector("#demo");
+	function insertUsers(users) {
+		users.forEach(user => {
+			console.log(user);
+			let eleTag = document.createElement("li");
+			let eleTekst = document.createTextNode( user.title);
+			eleTag.appendChild(eleTekst);
+			app.appendChild(eleTag);
+		})
+	}
+	
+	function readData() {
+		return new Promise((resolve, reject) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+			xhr.onload = function() {
+				if (this.status === 200) {
+					resolve(JSON.parse(xhr.responseText));
+				} else {
+					reject('Wystąpił błąd w ściąganiu danych');
+				}
+			}
+			xhr.addEventListener('error', () => reject(xhr.statusText));
+			xhr.send();
+		})
+	}
+	
+	readData()
+	.then(data => insertUsers(data))
+	.catch(err => console.error(err))
+</script>
+
+</body>
+
+</html>

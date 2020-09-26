@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://a-kord.pl/test/_forma/css/styl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <header>Pobieranie danych JOSON - miejscowych</header>
+    <div class="tool">
+        <button type="button" id="but" name="but" class="link">Dane1</button>
+        <button type="button" id="but2" name="but2" class="link">Dane2</button>
+    </div>
+    <div class="naglowek">
+        <i class="far fa-address-card fa-2x"></i> Dane:
+    </div>
+    <div id="demo">
+
+    </div>
+
+<script>
+const tab = [];
+
+const ele = document.getElementById("but");
+const ele2 = document.getElementById("but2");
+const demo = document.querySelector("#demo");
+ele.addEventListener("click", view, false);
+ele2.addEventListener("click", view, false);
+
+
+function readData() {
+            /*
+            Tworzymy obietnicę
+            */
+            return new Promise((resolve, reject) => {
+                
+                /*Tworzymy obiekt*/
+                const xhr = new XMLHttpRequest();
+                /*wykorzystujemy jego metodę open*/
+                xhr.open('GET', 'dane.json');
+                /*wykorzystujemy jego zdarzenie onload*/
+                xhr.onload = function() {
+
+                    if (this.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject('Wystąpił błąd w ściąganiu danych');
+                    }
+                }
+                
+                xhr.addEventListener('error', () => reject(xhr.statusText));
+                xhr.send();
+            })
+        }
+
+    readData()
+    .then(data => {
+        data.forEach((wartosc, index) => {
+            tab[index] = wartosc;
+        })
+    })
+    .catch(err => console.error(err));
+
+function view(e){
+    let ktory = e.target.id;
+    if( ktory == "but"){
+        demo.innerHTML=tab[0].name;
+    }
+    if( ktory == "but2"){
+        demo.innerHTML=tab[1].name;
+    }
+}
+
+</script>
+
+</body>
+
+</html>
